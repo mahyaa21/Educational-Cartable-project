@@ -40,10 +40,12 @@ class TeacherSidebar extends Component {
         const {isAuthenticated, user} = this.props.auth;
         return<>
        
+       
             <div>
                 <ul>
-                    <li><Link className="nav-link" to="/download">upload</Link></li>
-                    <li><Link className="nav-link" to="/upload">download</Link></li>
+                    <li><Link className="nav-link" to="/upload-teacher">تکلیف جدید</Link></li>
+                    <li><Link className="nav-link" to="/download-teacher">تکالیف ارسال شده دانشجویان</Link></li>
+                    <li><Link className="nav-link" to="/homeworks-teacher">تکالیف گذشته</Link></li>
                 </ul>
             </div>
         </>

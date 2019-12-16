@@ -34,8 +34,8 @@ class Teacher extends Component {
     console.log(images);
     return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px', flexDirection: 'column' }}>
 
-      <DownloadHomwork />
-      <UploadHomwork />
+      {/* <DownloadHomwork />
+      <UploadHomwork /> */}
 
 
     </div>

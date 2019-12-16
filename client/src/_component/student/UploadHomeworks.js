@@ -36,16 +36,16 @@ class UploadHomework extends Component {
             // receive two    parameter endpoint url ,form data 
                 headers: {
                     fileName: selectedFile.name,
-                  
+                    user: this.props.auth.user.id
                 }    
-        })
-            .then(res => { // then print response status
+        }) .then(res => { // then print response status
 
                 if (res.status === 'Ok'){
                     this.setState({
                         result: true
                     })
                 }
+                console.log('user'+this.props.auth.user.name)
                 console.log(res.statusText)
                 alert('upload successfully!');
             })
@@ -64,8 +64,14 @@ class UploadHomework extends Component {
 
   componentWillMount(){
 
-    axios.get('/api/users/showhomeworks').then(res => {
+    axios.get('/api/users/homeworks',{
+      // receive two    parameter endpoint url ,form data 
+          headers: {
+              id: this.props.auth.user.id
+          }    
+  }).then(res => {
         this.setState({homeworks: [...res.data]})
+        
     })
       
 }
@@ -101,7 +107,7 @@ showHomeworks = () =>{
       <input type="file" style={{ width: '70%', }} name="file" onChange={this.onChangeHandler} />
       <button type="button" style={{ width: '70%', }} className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
 
-      {this.showHomeworks()}
+      {/* {this.showHomeworks()} */}
 
     </div>
   }

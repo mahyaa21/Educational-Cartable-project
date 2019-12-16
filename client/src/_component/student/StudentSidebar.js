@@ -42,8 +42,9 @@ class StudentSidebar extends Component {
        
             <div>
                 <ul>
-                    <li><Link className="nav-link" to="/download">upload</Link></li>
-                    <li><Link className="nav-link" to="/upload">download</Link></li>
+                    <li><Link className="nav-link" to="/upload-student">سوالات</Link></li>
+                    <li><Link className="nav-link" to="/download-student">ارسال تکالیف</Link></li>
+                    <li><Link className="nav-link" to="/student-homeworks">تکالیف قبلا ارسال شده</Link></li>
                 </ul>
             </div>
         </>

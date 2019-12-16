@@ -18,7 +18,7 @@ class DownloadHomework extends Component {
 
   componentWillMount() {
 
-    axios.get('/api/users/showhomeworks').then(res => this.setState({homeWorks: [...res.data]}))
+    // axios.get('/api/users/showhomeworks').then(res => this.setState({homeWorks: [...res.data]}))
 
   }
 

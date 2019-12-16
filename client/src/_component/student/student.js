@@ -48,8 +48,8 @@ class Student extends Component {
   render() {
     return <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'500px',flexDirection:'column'}}>
 
-    <input type="file" style={{width:'30%',}} name="file" onChange={this.onChangeHandler} />
-    <button type="button" style={{width:'30%',}} class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+    {/* <input type="file" style={{width:'30%',}} name="file" onChange={this.onChangeHandler} />
+    <button type="button" style={{width:'30%',}} class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> */}
 
   </div>
   }

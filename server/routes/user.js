@@ -10,7 +10,7 @@ const validateLoginInput = require('../validation/login');
 const path = require('path');
 const User = require('../model/user');
 const HomeWorks = require('../model/HomeWork');
-
+const HomeworkUser = require('../model/homework-user')
 router.get('/', function (req, res, next) {
     
     User.find({}).then(userfind=>{
@@ -109,7 +109,8 @@ router.post('/login', (req, res) => {
                                 id: user.id,
                                 name: user.name,
                                 role: user.role,
-                                avatar: user.avatar
+                                avatar: user.avatar,
+                                email: user.email
                             }
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
@@ -160,6 +161,26 @@ router.post('/upload',function(req, res) {
         cb(null, newhomework.id + '-'  + file.originalname )  /*  file.originalname */
       }
   })
+
+  const newhomeworkUser = new HomeworkUser;
+
+    Promise.all([ User.findOne({_id: req.headers.user}),HomeWorks.findOne({date: newhomework.date})]).then(values=>{
+      
+      newhomeworkUser.Homework = values[1].id;
+      newhomeworkUser.UserOwner = values[0].id;
+ 
+      newhomeworkUser.save().then(HUSaved => {
+       console.log(newhomeworkUser);
+     }).catch(err => {
+      console.log('HU does not saved because ...' + err);
+     }) 
+ 
+    }).catch(err=>{
+        console.log('HU can not find bcz ...'+ err)
+    })
+
+
+
   var upload = multer({ storage: storage }).single('file')
     upload(req, res, function (err) {
            if (err instanceof multer.MulterError) {
@@ -171,11 +192,9 @@ router.post('/upload',function(req, res) {
 
     })
 
-   // res.send(newhomework);
 }).catch(err=>{
     console.log('home work does not saved bcz ...'+ err)
 })
- 
 
 });
 
@@ -187,15 +206,7 @@ router.get('/showimage/:file(*)',(req, res) => {
     var fileLocation = path.join('./public/HomeWorks/HomeWorksStudent',file);
     console.log(fileLocation);
     res.download(fileLocation, file); 
-  });
-
-router.get('/showhomeworks',(req,res)=>{
-
-    HomeWorks.find({}).then(result=>{
-        res.json(result);
-    })
-
-})  
+  });  
 
 
 router.get('/download', (req, res, next) => {

@@ -36,7 +36,7 @@ class UploadHomework extends Component {
             // receive two    parameter endpoint url ,form data 
                 headers: {
                     fileName: selectedFile.name,
-                  
+                    user: this.props.auth.user.id
                 }    
         })
             .then(res => { // then print response status
@@ -64,9 +64,21 @@ class UploadHomework extends Component {
 
   componentWillMount(){
 
-    axios.get('api/users/showhomeworks').then(res => {
+    console.log('id:' + this.props.auth.user.id)
+
+    axios.get('/api/users/homeworks',
+       {
+        headers: {
+          id: this.props.auth.user.id,
+        }
+      }
+    ).then(res => {
+      console.log('homeworkssss:' + res)
         this.setState({homeworks: [...res.data]})
+    }).catch(err=>{
+      console.log("homeworks request is not res bcz"+ err)
     })
+     console.log('homeworks:' + this.state.homeworks)
       
 }
 
