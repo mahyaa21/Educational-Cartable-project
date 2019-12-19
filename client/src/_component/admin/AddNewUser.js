@@ -74,7 +74,7 @@ class AddNewUser extends Component {
     createUserAdded = () => {
         const { users } = this.state;
         const { resStatus } = this.props.courseStatus;
-        this.result = (resStatus == 'Ok') ? true : false;
+        this.result = (resStatus === 'Ok') ? true : false;
         console.log('resstause: ' + resStatus)
         console.log('result: ' + this.result);
         return <>

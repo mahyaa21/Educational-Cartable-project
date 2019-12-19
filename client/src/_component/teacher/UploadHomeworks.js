@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import Axios from 'axios';
+
 
 class UploadHomework extends Component {
   constructor(props) {

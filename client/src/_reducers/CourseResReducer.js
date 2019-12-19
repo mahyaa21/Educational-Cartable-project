@@ -1,5 +1,5 @@
 import { SET_COURSE } from '../_actions/type';
-import isEmpty from '../validation/is-empty';
+
 
 const initialState = {
     

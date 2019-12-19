@@ -4,26 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import '../../App.scss'
-import {Navbar, Nav, NavItem, Button, Glyphicon} from 'react-bootstrap';
-//import Sidebar from 'react-bootstrap-sidebar';
-// import Upload from './Upload';
-import { FaBars } from 'react-icons/fa';
+
 class StudentSidebar extends Component {
 
-
-    // constructor(props) {
-    //     super(props);
-    //     this.toggleNavbar = this.toggleNavbar.bind(this);
-    //     this.state = {
-    //     collapsed: true,
-    //     };
-    //     }
-    //     toggleNavbar() {
-    //     this.setState({
-    //     collapsed: !this.state.collapsed,
-    //     });
-    //     }
-    
 
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
@@ -37,7 +20,7 @@ class StudentSidebar extends Component {
    
 
     render() {
-        const {isAuthenticated, user} = this.props.auth;
+
         return<>
        
             <div>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser } from '../_actions/authentication';
 import { withRouter } from 'react-router-dom';
 import StudentSidebar from '../_component/student/index'
 import TeacherSidebar from '../_component/teacher/TeacherSidebar';
@@ -13,16 +11,15 @@ class Sidebar extends Component {
 
 
     componentDidMount() {
-        if (this.props.auth.isAuthenticated) {
-            // this.props.history.push('/');
-        } else {
+        if (!this.props.auth.isAuthenticated) {
+
             this.props.history.push('/');
             alert('not authenticated')
-
-        }
+       
+        } 
     }
     ChooseSidebar = () => {
-        const { isAuthenticated, user } = this.props.auth;
+        const { user } = this.props.auth;
         switch (user.role) {
             case 'student':
                 return <div><StudentSidebar /></div>
@@ -38,7 +35,7 @@ class Sidebar extends Component {
     }
 
     render() {
-        const { isAuthenticated, user } = this.props.auth;
+        const { isAuthenticated } = this.props.auth;
         return <>
             {!isAuthenticated ||
             <div className='Sidebar bg-dark'>

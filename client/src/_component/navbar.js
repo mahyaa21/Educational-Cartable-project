@@ -30,12 +30,12 @@ class Navbar extends Component {
         //console.log(user);
         const authLinks = (
             <ul className="navbar-nav ml-auto">
-                <a href="#" className="nav-link" onClick={this.onLogout.bind(this)}>
+                <li  className="nav-link" onClick={this.onLogout.bind(this)}>
                     {/* <img src={user.avatar} alt={user.name} title={user.name}
                         className="rounded-circle"
                         style={{ width: '25px', marginRight: '5px'}} /> */}
                            {user.name} <FormattedMessage id='Logout' defaultMessage='Logout'/>
-                </a>
+                </li>
             </ul>
         )
       const guestLinks = (
@@ -55,8 +55,8 @@ class Navbar extends Component {
                     {isAuthenticated ? authLinks : guestLinks}
                 </div>
                 <div className="nav-item">
-                    <a role='button' onClick={()=> this.props.setLocale('en')}><FormattedMessage id='nav.enlanguage' defaultMessage='EN'/></a>| 
-                    <a role='button' onClick={()=> this.props.setLocale('fa')}><FormattedMessage id='nav.falanguage' defaultMessage='FA'/></a>
+                    <button onClick={()=> this.props.setLocale('en')}><FormattedMessage id='nav.enlanguage' defaultMessage='EN'/></button>| 
+                    <button onClick={()=> this.props.setLocale('fa')}><FormattedMessage id='nav.falanguage' defaultMessage='FA'/></button>
                 </div>
             </nav>
         )

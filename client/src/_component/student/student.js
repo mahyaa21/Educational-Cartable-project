@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { DropzoneArea } from 'material-ui-dropzone'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';

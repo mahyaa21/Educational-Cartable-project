@@ -6,7 +6,6 @@ import { registerCourse } from '../../_actions/index';
 import classnames from 'classnames';
 import Axios from 'axios';
 import { MDBBtn } from "mdbreact";
-//import {FormattedMessage} from 'react-intl';
 
 
 class RegisterCourse extends Component {
@@ -81,7 +80,7 @@ class RegisterCourse extends Component {
     createCourseAdded = () => {
         const { courses } = this.state;
         const { resStatus } = this.props.courseStatus;
-        this.result = (resStatus == 'Ok') ? true : false;
+        this.result = (resStatus === 'Ok') ? true : false;
         console.log('resstause: '+ resStatus)
         console.log('result: '+this.result);
         return <>

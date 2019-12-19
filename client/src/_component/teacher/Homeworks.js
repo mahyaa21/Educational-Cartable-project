@@ -3,8 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-// import UploadHomework from './UploadHomeworks';
-import Axios from 'axios';
+
 
 class UploadHomework extends Component {
     constructor(props) {
@@ -108,7 +107,7 @@ class UploadHomework extends Component {
 
 
     render() {
-        const { homeworks } = this.state;
+
         return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px', flexDirection: 'column' }}>
 
             {/* <input type="file" style={{ width: '70%', }} name="file" onChange={this.onChangeHandler} />

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { registerCourseUser } from '../../_actions/index';
-import classnames from 'classnames';
+
 import Axios from 'axios';
 import { MDBBtn } from "mdbreact";
 
@@ -78,7 +78,7 @@ class RegisterCourseUser extends Component {
     createCourseAdded = () => {
         const { CoursesUser } = this.state;
         const { resStatus } = this.props.courseStatus;
-        this.result = (resStatus == 'Ok') ? true : false;
+        this.result = (resStatus === 'Ok') ? true : false;
         console.log('resstause: '+ resStatus)
         console.log('result: '+this.result);
          return <>

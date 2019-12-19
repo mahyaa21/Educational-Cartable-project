@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import download from 'downloadjs';
 import Axios from 'axios';
-import filedownload from 'js-file-download';
+
 class DownloadHomework extends Component {
   constructor(props) {
     super(props);

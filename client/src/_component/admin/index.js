@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { Chart } from 'react-chartjs-2';
-import { ThemeProvider } from '@material-ui/styles';
 import validate from 'validate.js';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,11 +9,11 @@ import { chartjs } from '../../_helper';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../../App.scss';
 import validators from '../../common/validators';
-import Sidebar from '../Sidebar';
+
 //import Routes from '../../Routes';
 
 
-const browserHistory = createBrowserHistory();
+// const browserHistory = createBrowserHistory();
 
 Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
   draw: chartjs.draw
@@ -29,9 +26,9 @@ validate.validators = {
 
 class Admin extends Component {
 
-  constructor(props){
-    super(props)
-  }
+  // constructor(props){
+  //   super(props)
+  // }
      componentDidMount() {
         if(this.props.auth.isAuthenticated) {
            // this.props.history.push('/');

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_COURSE } from './type';
-import store from '../store/index'
 
 export const registerCourse = (course, history) => dispatch => {
     axios.post('/api/users/courses/create', course)

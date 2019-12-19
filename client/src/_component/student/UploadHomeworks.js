@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import Axios from 'axios';
+
 
 class UploadHomework extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class UploadHomework extends Component {
                     fileName: selectedFile.name,
                     user: this.props.auth.user.id
                 }    
-        }) .then(res => { // then print response status
+        }).then(res => { // then print response status
 
                 if (res.status === 'Ok'){
                     this.setState({

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import DownloadHomwork from './DownloadHomeworks';
-import UploadHomwork from './UploadHomeworks';
+
 
 class Teacher extends Component {
   constructor(props) {
