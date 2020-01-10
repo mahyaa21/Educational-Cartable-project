@@ -3,36 +3,47 @@ const router = express.Router();
 const User = require('../model/user');
 const HomeWorks = require('../model/HomeWork');
 const HomeworkUser = require('../model/homework-user');
-router.get('/',(req,res)=>{
 
-    HomeworkUser.find({UserOwner: req.headers.id}).select({ "Homework": 1, "_id": 0}).then(results => {
+router.get('/',async (req, res)=>{
 
-      console.log(results)
+   let Homeworks = await HomeworkUser.find({UserOwner: req.headers.id}).select({ "Homework": 1, "_id": 0}).then(results => {
+    
+        console.log(results);
+        return [...results];
+      
+    }).catch(err => {
+        console.log('can not find hw..' + err)
+    });
 
-      let homeworksArray = results.map(function(result) {
+    console.log("homeworks" + Homeworks)
 
-         
-        let HW = HomeWorks.findOne({_id: result.Homework}).then(HWresult =>{
+   let homeworksArray =  Homeworks.map(async function(result) {
+        
+      let HW = await HomeWorks.findOne({_id: result.Homework}).then( HWresult =>{
 
-               console.log("resultH" + HWresult) 
-               
-              // HW = HWresult; 
-                return HWresult;
+                return {
+                    name: HWresult.name,
+                    _id: HWresult._id,
+                    date: HWresult.date
+                };
                  
             }).catch(err =>{
                 console.log('can not set hw ..'+ err)
             })
 
-            console.log('HW' + HW)
+            return HW;
 
-            return HW
+            // console.log('HW' + HW)
+         
         })
-        console.log('homeworksArray' + homeworksArray)
-        res.json(homeworksArray);    
-      
-    }).catch(err => {
-        console.log('can not find hw..' + err)
-    })
+
+    // let tmp = await HomeworkUser.find({UserOwner: req.headers.id}).select({ "Homework": 1, "_id": 0});
+
+    // tmp.map(()=>{
+
+    // });
+
+    console.log("after promises let homeworksArray" +  homeworksArray)
 
 })
 

@@ -15,16 +15,6 @@ class Navbar extends Component {
         this.props.logoutUser(this.props.history);
     }
 
-   /*  componentDidMount() {
-        if(this.props.auth.isAuthenticated) {
-           // this.props.history.push('/');
-        }else{
-            this.props.history.push('/');
-            alert('not authenticated')
-           
-        }
-    } */
-
     render() {
         const {isAuthenticated, user} = this.props.auth;
         //console.log(user);
