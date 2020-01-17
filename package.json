@@ -28,6 +28,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "flexbox": "0.0.3",
+    "history": "^4.10.1",
     "jwt-decode": "^2.2.0",
     "material-ui-dropzone": "^2.4.1",
     "mdbreact": "^4.19.2",

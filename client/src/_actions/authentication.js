@@ -34,8 +34,10 @@ export const loginUser = (user,history) => dispatch => {
                 dispatch(setCurrentUser(decoded));
                 //const {role} = this.props.auth.user
                 //debugger
+                // console.log(history)
+                console.log(res.data)
                 console.log(role)
-               // debugger
+               debugger
                 switch(role){
                     
                     case 'student':
@@ -45,14 +47,15 @@ export const loginUser = (user,history) => dispatch => {
                         history.push('/teacher');
                         break;
                     case 'admin':
-                        history.push('/dashboard');
+                        history.push("/dashboard");
                         break;
                     default:
                         alert('you are not registerd!')   
                         break;         
                 }
             })
-            .catch(err => {
+        .catch(err => {
+                console.log(err)
                 dispatch({
                     type: GET_ERRORS,
                     payload: err.response.data

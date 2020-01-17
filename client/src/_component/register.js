@@ -105,13 +105,13 @@ class Register extends Component {
         const { errors } = this.state;
 
         return (
-            <div className="container" style={{ marginTop: '50px', width: '700px' }}>
+            <div className="container">
                 <h2 style={{ marginBottom: '40px' }}>Registration</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <input
                             type="text"
-                            placeholder="Name"
+                            placeholder="نام"
                             className={classnames('form-control form-control-lg', {
                                 'is-invalid': errors.name
                             })}
@@ -124,7 +124,7 @@ class Register extends Component {
                     <div className="form-group">
                         <input
                             type="email"
-                            placeholder="Email"
+                            placeholder="ایمیل"
                             className={classnames('form-control form-control-lg', {
                                 'is-invalid': errors.email
                             })}
@@ -137,7 +137,7 @@ class Register extends Component {
                     <div className="form-group">
                         <input
                             type="password"
-                            placeholder="Password"
+                            placeholder="رمز عبور"
                             className={classnames('form-control form-control-lg', {
                                 'is-invalid': errors.password
                             })}
@@ -150,7 +150,7 @@ class Register extends Component {
                     <div className="form-group">
                         <input
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder="تکرار رمز عبور"
                             className={classnames('form-control form-control-lg', {
                                 'is-invalid': errors.password_confirm
                             })}
@@ -173,17 +173,17 @@ class Register extends Component {
                         /> */}
                         <select name="role" id="role" className="form-control" onChange={this.handleInputChange}>
 
-                            <option value='notdefine'>choose role</option>
-                            <option value='student'>student</option>
-                            <option value='teacher'>teacher</option>
-                            <option value='admin'>admin</option>
+                            <option value='notdefine'>انتخاب سمت</option>
+                            <option value='student'>دانشجو</option>
+                            <option value='teacher'>استاد</option>
+                            <option value='admin'>مدیر</option>
 
                         </select>
                         {errors.role && (<div className="invalid-feedback">{errors.role}</div>)}
                     </div>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary">
-                            Register User
+                            ثبت نام
                     </button>
                     </div>
 

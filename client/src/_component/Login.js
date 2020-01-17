@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../_actions/authentication';
 import classnames from 'classnames';
 import '../App.scss'
-
+import { withRouter } from 'react-router-dom';
 class Login extends Component {
 
     constructor(props) {
@@ -30,6 +30,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         }
+        console.log("history"+this.props.history)
         this.props.loginUser(user,this.props.history);
     }
 
@@ -52,16 +53,14 @@ class Login extends Component {
     render() {
         const {errors} = this.state;
         return(
-        <div className="container login">
-           
-            <div className='loginForm'>
-            <h2 className='title'>Login</h2>
+        <div className="container">
+            <h2 className='title'>صفحه‌ی ورود</h2>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">
                     <input
                     type="email"
-                    placeholder="Email"
-                    className={classnames(' ', {
+                    placeholder="ایمیل"
+                    className={classnames('form-control form-control-lg', {
                         'is-invalid': errors.email
                     })}
                     name="email"
@@ -73,8 +72,8 @@ class Login extends Component {
                 <div className="form-group">
                     <input
                     type="password"
-                    placeholder="Password"
-                    className={classnames('', {
+                    placeholder="رمز عبور"
+                    className={classnames('form-control form-control-lg', {
                         'is-invalid': errors.password
                     })} 
                     name="password"
@@ -84,12 +83,12 @@ class Login extends Component {
                     {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary button" >
-                        Login User
+                    <button type="submit" className="btn btn-primary button">
+                        ورود کاربر
                     </button>
                 </div>
             </form>
-            </div>
+           
         </div>
         )
     }
@@ -103,4 +102,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 })
 
-export  default connect(mapStateToProps, { loginUser })(Login)
+export  default connect(mapStateToProps, { loginUser })(withRouter(Login))
