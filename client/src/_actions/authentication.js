@@ -37,7 +37,7 @@ export const loginUser = (user,history) => dispatch => {
                 // console.log(history)
                 console.log(res.data)
                 console.log(role)
-               debugger
+            //    debugger
                 switch(role){
                     
                     case 'student':

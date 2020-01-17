@@ -56,9 +56,10 @@ class App extends Component {
     <Route path='/upload-teacher' component={UploadTeacherHomework} />
     <Route path='/download-teacher' component={DownloadTeacherHomework} />
     <Route path='/homeworks-teacher' component={TeacherHomeworks} />
-    <Route path='/chat' component={Chat} />
+            <Route path='/chat' component={Chat} />
+            <Sidebar/> 
                 </div>
-                 <Sidebar/> 
+                 
                 {/* </div> */}
             {/* </div> */}
           </Router>

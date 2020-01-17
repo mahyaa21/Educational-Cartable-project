@@ -111,7 +111,7 @@ class RegisterCourse extends Component {
         const { errors, teachers } = this.state;
         //console.log(teachers);
         return (
-            <div className="container" style={{ marginTop: '50px', width: '700px' }}>
+            <div className="RegisterCourse">
                 <h2 style={{ marginBottom: '40px' }}>registraition</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
