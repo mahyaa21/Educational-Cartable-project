@@ -35,8 +35,8 @@ export const loginUser = (user,history) => dispatch => {
                 //const {role} = this.props.auth.user
                 //debugger
                 // console.log(history)
-                console.log(res.data)
-                console.log(role)
+                // console.log(res.data)
+                // console.log(role)
             //    debugger
                 switch(role){
                     

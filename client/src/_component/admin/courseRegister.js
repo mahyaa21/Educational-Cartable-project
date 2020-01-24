@@ -112,7 +112,7 @@ class RegisterCourse extends Component {
         //console.log(teachers);
         return (
             <div className="RegisterCourse">
-                <h2 style={{ marginBottom: '40px' }}>registraition</h2>
+                <h2 style={{ marginBottom: '40px' , textAlign: 'right'}}>ثبت نام</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <input

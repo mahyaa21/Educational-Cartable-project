@@ -83,7 +83,7 @@ input{
 
 .title{
   padding: 10px;
-  margin:20px;
+  margin:20px 0px;
   direction: rtl;
   text-align: right;
 }
@@ -225,4 +225,10 @@ color:rgb(142, 0, 145);
 .active{
   background-color:#FC00FF;
 
+}
+
+.portal-container{
+  display: flex;
+  justify-content: center;
+  
 }

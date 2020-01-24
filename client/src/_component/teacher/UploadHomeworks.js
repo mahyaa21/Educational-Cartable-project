@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-
+import './teacher.scss';
 
 class UploadHomework extends Component {
   constructor(props) {
@@ -108,7 +108,7 @@ showHomeworks = () =>{
  
   render() {
  
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px', flexDirection: 'column' }}>
+    return <div className='Home-work_container'>
 
       <input type="file" style={{ width: '70%', }} name="file" onChange={this.onChangeHandler} />
       <button type="button" style={{ width: '70%', }} className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>

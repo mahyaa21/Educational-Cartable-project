@@ -3,9 +3,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import './teacher.scss';
 
-
-class UploadHomework extends Component {
+class TeacherHomeworks extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -74,7 +74,7 @@ class UploadHomework extends Component {
         }
       }
     ).then(res => {
-      console.log('homeworkssss:' + res)
+      console.log('homeworkssss:' , res)
         this.setState({homeworks: [...res.data]})
     }).catch(err=>{
       console.log("homeworks request is not res bcz"+ err)
@@ -108,7 +108,7 @@ class UploadHomework extends Component {
 
     render() {
 
-        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px', flexDirection: 'column' }}>
+        return <div className='Home-work_container'>
 
             {/* <input type="file" style={{ width: '70%', }} name="file" onChange={this.onChangeHandler} />
       <button type="button" style={{ width: '70%', }} className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> */}
@@ -137,7 +137,7 @@ class UploadHomework extends Component {
 
 
 
-UploadHomework.propTypes = {
+TeacherHomeworks.propTypes = {
     //TeacherUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
@@ -147,4 +147,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps)(withRouter(UploadHomework))
+export default connect(mapStateToProps)(withRouter(TeacherHomeworks))

@@ -39,7 +39,7 @@ class App extends Component {
                 <Navbar/>
                 {/* <div style={{display:'flex',flexDirection:'row',height:'100%',width:'100%'}}> */}
           
-                <div className="container-fluid">
+                <div className="container-fluid portal-container">
                 <Route exact path="/" component={ Home } />
                 {/* <div className="container"> */}
                 <Route exact path="/addnewuser" component={AddNewUser} />
@@ -53,11 +53,11 @@ class App extends Component {
                 <Route path='/upload-student' component={UploadStudentHomework} />
                 <Route path='/download-student' component={DownloadStudentHomework} />
                 <Route path='/student-homeworks' component={StudentHomeworks} />
-    <Route path='/upload-teacher' component={UploadTeacherHomework} />
-    <Route path='/download-teacher' component={DownloadTeacherHomework} />
-    <Route path='/homeworks-teacher' component={TeacherHomeworks} />
-            <Route path='/chat' component={Chat} />
-            <Sidebar/> 
+                <Route path='/upload-teacher' component={UploadTeacherHomework} />
+                <Route path='/download-teacher' component={DownloadTeacherHomework} />
+                <Route path='/homeworks-teacher' component={TeacherHomeworks} />
+                <Route path='/chat' component={Chat} />
+                <Sidebar/> 
                 </div>
                  
                 {/* </div> */}
