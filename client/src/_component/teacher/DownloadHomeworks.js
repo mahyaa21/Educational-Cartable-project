@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React,{ Component } from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import download from 'downloadjs';
 import Axios from 'axios';
-
+import { Table } from 'reactstrap';
 class DownloadHomework extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,17 @@ class DownloadHomework extends Component {
 
   componentWillMount() {
 
-    // axios.get('/api/users/showhomeworks').then(res => this.setState({homeWorks: [...res.data]}))
+    axios.get('/api/users/homeworks',
+      {
+        headers: {
+          id: this.props.auth.user.id,
+        }
+      }
+    )
+      .then(res => this.setState({ homeWorks: [...res.data] }))
+      .catch(err => {
+        console.log(err);
+      })
 
   }
 
@@ -29,9 +39,9 @@ class DownloadHomework extends Component {
       method: 'GET',
       responseType: 'blob', // important
     }).then((response) => {
-      const image = { name: window.URL.createObjectURL(new Blob([response.data])), address: address };
+      const image = { name: window.URL.createObjectURL(new Blob([response.data])),address: address };
       this.setState({
-        images: [...images, image]
+        images: [...images,image]
       })
 
     });
@@ -46,36 +56,38 @@ class DownloadHomework extends Component {
   render() {
     const { homeWorks } = this.state;
     console.log(homeWorks);
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '500px', flexDirection: 'column' }}>
-      <table>
-        <tbody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    return <div style={{ display: 'flex',justifyContent: 'center',alignItems: 'center',height: '500px',flexDirection: 'column' }}>
+      <Table striped responsive hover>
+        <thead>
           <tr>
-            <th>home works</th>
+            <th>تکالیف</th>
           </tr>
+        </thead>
+        <tbody style={{ display: 'flex',flexDirection: 'column',justifyContent: 'center',alignItems: 'center' }}>
 
           {homeWorks.map(homeWork => {
             return <tr key={homeWork.id}>
 
-              <td style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-              <span>{homeWork.name}</span>
-              <button
+              <td style={{ display: 'flex',flexDirection: 'row',justifyContent: 'center',alignItems: 'center' }}>
+                {homeWork.name}</td>
+              <td><button
                 type="button"
                 onClick={async () => {
                   const res = await fetch('/api/users/download',{
-                   headers: {
-                      address:  homeWork.name,
+                    headers: {
+                      address: homeWork.name,
                     }
                   });
                   const blob = await res.blob();
-                  download(blob , homeWork.name );
-                 // filedownload(blob,'test.rar')
+                  download(blob,homeWork.name);
+                  // filedownload(blob,'test.rar')
                 }}
               >Download</button></td>
-                            
-                        </tr>
-      })}
-                </tbody>
-      </table>
+
+            </tr>
+          })}
+        </tbody>
+      </Table>
 
     </div>
   }

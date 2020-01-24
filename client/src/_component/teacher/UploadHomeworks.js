@@ -113,7 +113,7 @@ showHomeworks = () =>{
       <input type="file" style={{ width: '70%', }} name="file" onChange={this.onChangeHandler} />
       <button type="button" style={{ width: '70%', }} className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
 
-      {this.showHomeworks()}
+      {/* {this.showHomeworks()} */}
 
     </div>
   }

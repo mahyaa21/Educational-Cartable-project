@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React,{ Component } from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import './teacher.scss';
+import { Table } from 'reactstrap';
 
 class TeacherHomeworks extends Component {
     constructor(props) {
@@ -31,8 +32,8 @@ class TeacherHomeworks extends Component {
 
         const { selectedFile } = this.state;
         const data = new FormData();
-        data.append('file', this.state.selectedFile)
-        axios.post("/api/users/upload", data, {
+        data.append('file',this.state.selectedFile)
+        axios.post("/api/users/upload",data,{
             // receive two    parameter endpoint url ,form data 
             headers: {
                 fileName: selectedFile.name,
@@ -64,43 +65,51 @@ class TeacherHomeworks extends Component {
 
     componentWillMount() {
 
-        
-    console.log('id:' + this.props.auth.user.id)
 
-    axios.get('/api/users/homeworks',
-       {
-        headers: {
-          id: this.props.auth.user.id,
-        }
-      }
-    ).then(res => {
-      console.log('homeworkssss:' , res)
-        this.setState({homeworks: [...res.data]})
-    }).catch(err=>{
-      console.log("homeworks request is not res bcz"+ err)
-    })
-     console.log('homeworks:' + this.state.homeworks)
+        console.log('id:' + this.props.auth.user.id)
+
+        axios.get('/api/users/homeworks',
+            {
+                headers: {
+                    id: this.props.auth.user.id,
+                }
+            }
+        ).then(res => {
+            console.log('homeworkssss:',res)
+            this.setState({ homeworks: [...res.data] })
+        }).catch(err => {
+            console.log("homeworks request is not res bcz" + err)
+        })
+        console.log('homeworks:' + this.state.homeworks)
     }
 
     showHomeworks = () => {
         const { homeworks } = this.state;
         return <>
-            <table>
-                <tbody>
+            <Table striped responsive hover>
+                <thead>
                     <tr>
-                        <th>HomeWorks added</th>
+                        <th>#</th>
+                        <th>تکالیف آپلود شده</th>
+                        <th>تاریخ</th>
+                        <th>دانلود</th>
                     </tr>
+                </thead>
+                <tbody>
 
-                    {homeworks.map(homework => {
+                    {homeworks.map((homework,index )=> {
                         return <tr key={homework.id}>
+                            <th scope="row">{index + 1}</th>
                             <td>{homework.name}</td>
+                            <td>{homework.date}</td>
+                            <td><button onClick={this.onClickHandler}>دانلود</button></td>
                         </tr>
                     })}
 
 
 
                 </tbody>
-            </table>
+            </Table>
         </>
     }
 
