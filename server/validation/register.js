@@ -10,39 +10,39 @@ module.exports = function validateRegisterInput(data) {
     data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
 
     if(!Validator.isLength(data.name, { min: 2, max: 30 })) {
-        errors.name = 'Name must be between 2 to 30 chars';
+        errors.name = 'نام باید بین ۲ تا ۳۰ کاراکتر باشد';
     }
     
     if(Validator.isEmpty(data.name)) {
-        errors.name = 'Name field is required';
+        errors.name = 'نام الزامی است';
     }
 
     if(!Validator.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
+        errors.email = 'ایمیل نا معتبر است';
     }
 
     if(Validator.isEmpty(data.email)) {
-        errors.email = 'Email is required';
+        errors.email = 'ایمیل الزامی است';
     }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})) {
-        errors.password = 'Password must have 6 chars';
+        errors.password = 'رمز عبور حداقل ۶ کارکتر است';
     }
 
     if(Validator.isEmpty(data.password)) {
-        errors.password = 'Password is required';
+        errors.password = 'رمز عبور الزامی است';
     }
 
     if(!Validator.isLength(data.password_confirm, {min: 6, max: 30})) {
-        errors.password_confirm = 'Password must have 6 chars';
+        errors.password_confirm = 'رمز عبور حداقل ۶ کاراکتر است';
     }
 
     if(!Validator.equals(data.password, data.password_confirm)) {
-        errors.password_confirm = 'Password and Confirm Password must match';
+        errors.password_confirm = 'رمز عبور و تکرار رمز عبور یکسان نیست';
     }
 
     if(Validator.isEmpty(data.password_confirm)) {
-        errors.password_confirm = 'Password is required';
+        errors.password_confirm = 'رمز عبور الزامیست';
     }
 
     return {

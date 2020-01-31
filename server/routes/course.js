@@ -14,15 +14,19 @@ router.get('/', (req, res) => {
 
  router.post('/create',(req,res)=>{
 
-    //const newCU = new CourseUser;
+
     const newCourse = new Course;
     newCourse.name = req.body.name;
-    newCourse.status = req.body.status;
+     newCourse.status = 'I';
      User.findOne({name: req.body.teacher}).then(teacherUser=>{
         newCourse.teacher = teacherUser.id;
-        //newCU.user = teacherUser.id;
+
+     }).catch(err => {
+         console.log('can not save course bcz...', err);
     }); 
-    //newCU.course = 
+
+     console.log("reqBody",req)
+     console.log("newCourse",newCourse)
     newCourse.save().then(courseSaved => {
         res.send(newCourse);
       }).catch(err => {
