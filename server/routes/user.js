@@ -53,7 +53,8 @@ router.post('/register', function(req, res) {
     if(!isValid) {
         return res.status(400).json(errors);
     }
-    Course.findOne({ name: req.body.course })
+    if (req.body.course) {
+        Course.findOne({ name: req.body.course })
         .then(course => {
         
   
@@ -99,6 +100,51 @@ router.post('/register', function(req, res) {
                 }
             });
         });
+    } else {
+        
+            User.findOne({
+                email: req.body.email
+            }).then(user => {
+                if (user) {
+                    return res.status(400).json({
+                        email: 'Email already exists'
+                    });
+                }
+                else {
+                    const avatar = gravatar.url(req.body.email,{
+                        s: '200',
+                        r: 'pg',
+                        d: 'mm'
+                    });
+                    const newUser = new User({
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password,
+                        role: req.body.role,
+                        avatar
+                    });
+            
+                    bcrypt.genSalt(10,(err,salt) => {
+                        if (err) console.error('There was an error',err);
+                        else {
+                            bcrypt.hash(newUser.password,salt,(err,hash) => {
+                                if (err) console.error('There was an error',err);
+                                else {
+                                    newUser.password = hash;
+                                    newUser
+                                        .save()
+                                        .then(user => {
+                                            res.json(user)
+                                        });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+      
+    }
+    
 });
 
 router.post('/login', (req, res) => {
