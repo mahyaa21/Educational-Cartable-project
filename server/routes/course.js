@@ -14,28 +14,31 @@ router.get('/', (req, res) => {
 
  router.post('/create',(req,res)=>{
 
-
     const newCourse = new Course;
     newCourse.name = req.body.name;
      newCourse.status = 'I';
-     User.findOne({name: req.body.teacher}).then(teacherUser=>{
-        newCourse.teacher = teacherUser.id;
-
-     }).catch(err => {
-         console.log('can not save course bcz...', err);
-    }); 
-
-     console.log("reqBody",req)
-     console.log("newCourse",newCourse)
+     newCourse.teacher = req.body.teacher;
     newCourse.save().then(courseSaved => {
         res.send(newCourse);
       }).catch(err => {
         res.send('Course does not saved because ...' + err);
       })
 
-      
+ })
 
-})
+router.get('/getteacher/:id',(req,res) => {
+    Course.findOne({ _id: req.params.id }).then(result => {
+        User.findOne({ _id: result.teacher }).then(teacher => {
+            res.send(teacher)
+        }).catch(err => {
+            console.log("teacher can not find bcz...",err)
+        })
+    }).catch(err => {
+        console.log("course can not find bcz...",err)
+    })
+ })
+
+
 
 router.get('/edit/:id',(req,res)=>{
 
@@ -53,18 +56,19 @@ router.get('/edit/:id',(req,res)=>{
 
 })
 
-router.put('/edit/:id',(req,res)=>{
+router.get('/finish/:id',(req,res)=>{
 
     Course.findOne({_id: req.params.id}).then(course=>{
 
-        course.name = req.body.name;
-        course.status = req.body.status;
-         User.findOne({name: req.body.teacher}).then(teacherUser=>{
-            course.teacher = teacherUser.id;
-        }); 
+        // course.name = req.body.name;
+        course.status = 'D';
+        //  User.findOne({name: req.body.teacher}).then(teacherUser=>{
+        //     course.teacher = teacherUser.id;
+        // }); 
         course.save().then(savedcourse=>{
 
-            res.redirect('/courses');
+            // res.redirect('/courses');
+            res.send(savedcourse)
 
         });
 

@@ -10,7 +10,8 @@ const validateLoginInput = require('../validation/login');
 const path = require('path');
 const User = require('../model/user');
 const HomeWorks = require('../model/HomeWork');
-const HomeworkUser = require('../model/homework-user')
+const HomeworkUser = require('../model/homework-user');
+const Course = require('../model/course')
 router.get('/', function (req, res, next) {
     
     User.find({}).then(userfind=>{
@@ -20,6 +21,16 @@ router.get('/', function (req, res, next) {
     })
     
   });
+
+router.get('/delete/:id',function (req,res,next) {
+    User.deleteOne({ _id: req.params.id })
+        .then(deletedUser => {
+        res.send(deletedUser)
+        })
+        .catch(err => {
+        console.log(err)
+    })
+  })
 
   router.get('/teacher', function (req, res, next) {
     
@@ -42,46 +53,52 @@ router.post('/register', function(req, res) {
     if(!isValid) {
         return res.status(400).json(errors);
     }
-    User.findOne({
-        email: req.body.email
-    }).then(user => {
-        if(user) {
-            return res.status(400).json({
-                email: 'Email already exists'
-            });
-        }
-        else {
-            const avatar = gravatar.url(req.body.email, {
-                s: '200',
-                r: 'pg',
-                d: 'mm'
-            });
-            const newUser = new User({
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password,
-                role:req.body.role,
-                avatar
-            });
-            
-            bcrypt.genSalt(10, (err, salt) => {
-                if(err) console.error('There was an error', err);
+    Course.findOne({ name: req.body.course })
+        .then(course => {
+        
+  
+            User.findOne({
+                email: req.body.email
+            }).then(user => {
+                if (user) {
+                    return res.status(400).json({
+                        email: 'Email already exists'
+                    });
+                }
                 else {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        if(err) console.error('There was an error', err);
+                    const avatar = gravatar.url(req.body.email,{
+                        s: '200',
+                        r: 'pg',
+                        d: 'mm'
+                    });
+                    const newUser = new User({
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password,
+                        role: req.body.role,
+                        course: course.id,
+                        avatar
+                    });
+            
+                    bcrypt.genSalt(10,(err,salt) => {
+                        if (err) console.error('There was an error',err);
                         else {
-                            newUser.password = hash;
-                            newUser
-                                .save()
-                                .then(user => {
-                                    res.json(user)
-                                }); 
+                            bcrypt.hash(newUser.password,salt,(err,hash) => {
+                                if (err) console.error('There was an error',err);
+                                else {
+                                    newUser.password = hash;
+                                    newUser
+                                        .save()
+                                        .then(user => {
+                                            res.json(user)
+                                        });
+                                }
+                            });
                         }
                     });
                 }
             });
-        }
-    });
+        });
 });
 
 router.post('/login', (req, res) => {

@@ -16,9 +16,9 @@ router.get('/',(req, res)=>{
                 let homeWork = await HomeWorks.findOne({ _id: homeWorkId.Homework });
                 // console.log(homeWork);
                 homeWorksArray.push(homeWork);
-                console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
+                // console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
             }
-            console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
+            // console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
             res.send(homeWorksArray);
         }
         findingHomework()
@@ -28,34 +28,6 @@ router.get('/',(req, res)=>{
     });
 
     console.log("homeworksArray" + homeWorksArray)
-
-//    let homeworksArray =  Homeworks.map(async function(result) {
-        
-//       let HW = await HomeWorks.findOne({_id: result.Homework}).then( HWresult =>{
-
-//                 return {
-//                     name: HWresult.name,
-//                     _id: HWresult._id,
-//                     date: HWresult.date
-//                 };
-                 
-//             }).catch(err =>{
-//                 console.log('can not set hw ..'+ err)
-//             })
-
-//             return HW;
-
-//             // console.log('HW' + HW)
-         
-//         })
-
-    // let tmp = await HomeworkUser.find({UserOwner: req.headers.id}).select({ "Homework": 1, "_id": 0});
-
-    // tmp.map(()=>{
-
-    // });
-
-    // console.log("after promises let homeworksArray" +  homeworksArray)
 
 })
 

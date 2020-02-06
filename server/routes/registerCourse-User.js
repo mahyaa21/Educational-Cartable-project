@@ -22,6 +22,8 @@ router.get('/get-students',(req,res)=>{
 
 })
 
+
+
 router.get('/get-courses',(req,res)=>{
 
   Course.find({}).then(courseFind=>{
@@ -47,6 +49,75 @@ router.get('/get-courses',(req,res)=>{
 
    })
       
+
+ })
+
+ router.get('/studentlist/:id',(req,res)=>{
+
+   let studentArray = [];
+  //  console.log('encode',encodeURIComponent(req.params.id))
+  CourseUser.find({Course: encodeURIComponent(req.params.id)}).select({ "Student": 1, "_id": 0}).then(results => {
+  
+      console.log(results);
+      async function findingStudent() {
+          
+          for (let i = 0; i < results.length; i++){
+              let studentId = results[i];
+              let student = await  User.findOne({ _id: studentId.Student });
+              // console.log(student);
+              studentArray.push(student);
+              // console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+          }
+          // console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+          res.send(studentArray);
+      }
+      findingStudent()
+    
+  }).catch(err => {
+      console.log('can not find hw..' + err)
+  });
+
+  // console.log("homeworksArray" + studentArray)
+
+ })
+
+ router.get('/notstudentlist/:id',(req,res)=>{
+
+  let studentArray = [];
+  console.log('encode',req.params.id)
+ CourseUser.find({Course: req.params.id}).select({ "Student": 1, "_id": 0}).then(results => {
+ 
+   let studentId=[]
+   results.forEach(Id => {
+     studentId.push(Id.Student);
+   })
+   console.log(results);
+   async function findingStudent() {
+     await User.find({ _id: { $nin: [...studentId] } }).then(notstudent => {
+       res.send(notstudent)
+     }).catch(err => {
+       console.log("not student can not find bcz..",err)
+     })
+   }
+    //  async function findingStudent() {
+         
+    //      for (let i = 0; i < results.length; i++){
+    //          let studentId = results[i];
+    //          let student = await  User.findOne({ _id: studentId.Student });
+    //          console.log(student);
+    //          studentArray.push(student);
+    //          console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+    //      }
+    //      console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+    //      res.send(studentArray);
+    //  }
+     findingStudent()
+   
+ }).catch(err => {
+     console.log('can not find hw..' + err)
+ });
+
+ console.log("homeworksArray" + studentArray)
 
 })
 
