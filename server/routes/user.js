@@ -34,7 +34,7 @@ router.get('/delete/:id',function (req,res,next) {
 
   router.get('/teacher', function (req, res, next) {
     
-    User.find({role:'teacher'},'name').then(userfind=>{
+    User.find({role:'استاد'},'name').then(userfind=>{
      
        // res.json(userfind);
         res.send(userfind);
@@ -209,10 +209,16 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 
 router.post('/upload',function(req, res) {
 
-
+    Course.find({ name: req.headers.course})
+        .then(resultCourse => {
+        
+    
     console.log(req.headers.filename);
     const newhomework = new HomeWorks;
     newhomework.name = req.headers.filename;
+    newhomework.User = req.headers.user;
+    newhomework.Course = resultCourse._id 
+    console.log('homework',newhomework);        
     newhomework.save().then(newHW =>{
     console.log('newhomework:'+ newhomework)
     var storage = multer.diskStorage({
@@ -258,7 +264,7 @@ router.post('/upload',function(req, res) {
 }).catch(err=>{
     console.log('home work does not saved bcz ...'+ err)
 })
-
+})
 });
 
 

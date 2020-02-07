@@ -95,10 +95,21 @@ router.delete('/:name',(req, res)=>{
     }).catch(err => {
         res.send('Course does not find because ...' + err);
       })
-   
-
 
 });
  
+
+//get teacher courses
+//homework user uploaded
+router.get('/teacher/courses/:teacherId',(req,res) => {
+
+    Course.find({ teacher: req.params.teacherId }).then(resultCourse => {
+        console.log('course',resultCourse)
+        res.json(resultCourse)
+    }).catch(err => {
+    console.log(err)
+})    
+    
+})
 
 module.exports = router;
