@@ -14,11 +14,11 @@ router.get('/',(req, res)=>{
             for (let i = 0; i < results.length; i++){
                 let homeWorkId = results[i];
                 let homeWork = await HomeWorks.findOne({ _id: homeWorkId.Homework });
-                // console.log(homeWork);
+              
                 homeWorksArray.push(homeWork);
-                // console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
+                
             }
-            // console.log("homeWorksArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",homeWorksArray)
+            
             res.send(homeWorksArray);
         }
         findingHomework()
@@ -44,7 +44,7 @@ router.get('/get-homework',(req,res)=>{
 
 })
 //homework user uploaded
-router.get('/gethomeworks/user/:teacherId',(req,res) => {
+router.get('/gethomeworks/:teacherId',(req,res) => {
 console.log('coouurresese')
     Course.find({ name: req.headers.course}).then(resultCourse => {
       
