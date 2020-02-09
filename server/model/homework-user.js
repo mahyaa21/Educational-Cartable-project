@@ -13,7 +13,11 @@ const HUSchema = new Schema({
     UserOwner:{
         type: Schema.Types.ObjectId,
         ref: 'User',
-      }
+  },
+    Course:{
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
+},
 
  
 });

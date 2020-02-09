@@ -167,14 +167,27 @@ router.post('/login', (req, res) => {
             }
             bcrypt.compare(password, user.password)
                     .then(isMatch => {
-                        if(isMatch) {
-                            const payload = {
-                                id: user.id,
-                                name: user.name,
-                                role: user.role,
-                                avatar: user.avatar,
-                                email: user.email
+                        if (isMatch) {
+                            let payload = {}
+                            if (user.role === 'کاروند') {
+                                payload = {
+                                    id: user.id,
+                                    name: user.name,
+                                    role: user.role,
+                                    avatar: user.avatar,
+                                    email: user.email,
+                                    course: user.course
+                                }
+                            } else {
+                                 payload = {
+                                    id: user.id,
+                                    name: user.name,
+                                    role: user.role,
+                                    avatar: user.avatar,
+                                    email: user.email
+                                }
                             }
+                           
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
                             }, (err, token) => {
@@ -209,15 +222,16 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 
 router.post('/upload',function(req, res) {
 
-    Course.find({ name: req.headers.course})
+    Course.findOne({ name: req.body.course})
         .then(resultCourse => {
         
-    
-    console.log(req.headers.filename);
+            console.log('resultcourse',resultCourse.id)
+            console.log('resultcourse',resultCourse)
+    console.log(req.body.filename);
     const newhomework = new HomeWorks;
-    newhomework.name = req.headers.filename;
-    newhomework.User = req.headers.user;
-    newhomework.Course = resultCourse._id 
+    newhomework.name = req.body.name;
+    newhomework.User = req.body.teacherId;
+    newhomework.Course = resultCourse.id 
     console.log('homework',newhomework);        
     newhomework.save().then(newHW =>{
     console.log('newhomework:'+ newhomework)
@@ -233,7 +247,7 @@ router.post('/upload',function(req, res) {
 
   const newhomeworkUser = new HomeworkUser;
 
-    Promise.all([ User.findOne({_id: req.headers.user}),HomeWorks.findOne({date: newhomework.date})]).then(values=>{
+    Promise.all([ User.findOne({_id: req.body.teacherId}),HomeWorks.findOne({date: newhomework.date})]).then(values=>{
       
       newhomeworkUser.Homework = values[1].id;
       newhomeworkUser.UserOwner = values[0].id;
@@ -264,6 +278,70 @@ router.post('/upload',function(req, res) {
 }).catch(err=>{
     console.log('home work does not saved bcz ...'+ err)
 })
+})
+});
+
+//student upload file
+
+
+router.post('/student/upload',function(req, res) {
+
+    // Course.findOne({ course: req.body.course})
+    //     .then(resultCourse => {
+        
+            // console.log('resultcourse',resultCourse.id)
+            // console.log('resultcourse',resultCourse)
+    // console.log(req.body.filename);
+    const newhomework = new HomeWorks;
+    newhomework.name = req.body.name;
+    newhomework.User = req.body.studentId;
+    newhomework.Course = req.body.course 
+    console.log('homework',newhomework);        
+    newhomework.save().then(newHW =>{
+    console.log('newhomework:'+ newhomework)
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+        cb(null, 'public/HomeWorks/HomeWorksStudent')
+      },
+      filename: function (req, file, cb) {
+        
+        cb(null, newhomework.id + '-'  + file.originalname )  /*  file.originalname */
+      }
+  })
+
+  const newhomeworkUser = new HomeworkUser;
+
+    Promise.all([ User.findOne({_id: req.body.teacherId}),HomeWorks.findOne({date: newhomework.date})]).then(values=>{
+      
+      newhomeworkUser.Homework = values[1].id;
+      newhomeworkUser.UserOwner = values[0].id;
+ 
+      newhomeworkUser.save().then(HUSaved => {
+       console.log(newhomeworkUser);
+     }).catch(err => {
+      console.log('HU does not saved because ...' + err);
+     }) 
+ 
+    }).catch(err=>{
+        console.log('HU can not find bcz ...'+ err)
+    })
+
+
+
+  var upload = multer({ storage: storage }).single('file')
+    upload(req, res, function (err) {
+           if (err instanceof multer.MulterError) {
+               return res.status(500).json(err)
+           } else if (err) {
+               return res.status(500).json(err)
+           }
+      return res.status(200).send(req.file)
+
+    })
+
+// }).catch(err=>{
+//     console.log('home work does not saved bcz ...'+ err)
+// })
 })
 });
 
