@@ -221,20 +221,20 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
 //uploade file
 
 router.post('/upload',function(req, res) {
-
-    Course.findOne({ name: req.body.course})
-        .then(resultCourse => {
+console.log('jdshfks')
+    // Course.findOne({ name: req.headers.course})
+    //     .then(resultCourse => {
         
-            console.log('resultcourse',resultCourse.id)
-            console.log('resultcourse',resultCourse)
-    console.log(req.body.filename);
+            // console.log('resultcourse',resultCourse.id)
+            // console.log('resultcourse',resultCourse)
+    console.log(req.headers.teacher);
     const newhomework = new HomeWorks;
-    newhomework.name = req.body.name;
-    newhomework.User = req.body.teacherId;
-    newhomework.Course = resultCourse.id 
+    newhomework.name = req.headers.name;
+    newhomework.User = req.headers.teacher;
+    newhomework.Course = req.headers.course;
     console.log('homework',newhomework);        
-    newhomework.save().then(newHW =>{
-    console.log('newhomework:'+ newhomework)
+    newhomework.save().then(newHW =>{ 
+        console.log('newhomework:',newhomework);
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
         cb(null, 'public/HomeWorks/HomeWorksStudent')
@@ -275,9 +275,9 @@ router.post('/upload',function(req, res) {
 
     })
 
-}).catch(err=>{
-    console.log('home work does not saved bcz ...'+ err)
-})
+// }).catch(err=>{
+//     console.log('home work does not saved bcz ...'+ err)
+// })
 })
 });
 

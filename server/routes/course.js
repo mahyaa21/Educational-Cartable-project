@@ -12,6 +12,15 @@ router.get('/', (req, res) => {
       })
 })
 
+router.post('/getcourse/id',(req,res)=> {
+    Course.findOne({ name: req.body.course }).then(course => {
+        console.log(course);
+        res.send(course.id)
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
  router.post('/create',(req,res)=>{
 
     const newCourse = new Course;
