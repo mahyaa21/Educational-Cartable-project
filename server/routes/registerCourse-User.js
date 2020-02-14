@@ -55,7 +55,7 @@ router.get('/get-courses',(req,res)=>{
  router.get('/studentlist/:id',(req,res)=>{
 
    let studentArray = [];
-  //  console.log('encode',encodeURIComponent(req.params.id))
+  
   CourseUser.find({Course: encodeURIComponent(req.params.id)}).select({ "Student": 1, "_id": 0}).then(results => {
   
       console.log(results);
@@ -64,11 +64,11 @@ router.get('/get-courses',(req,res)=>{
           for (let i = 0; i < results.length; i++){
               let studentId = results[i];
               let student = await  User.findOne({ _id: studentId.Student });
-              // console.log(student);
+              
               studentArray.push(student);
-              // console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+             
           }
-          // console.log("studentArrayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",studentArray)
+         
           res.send(studentArray);
       }
       findingStudent()
@@ -77,7 +77,7 @@ router.get('/get-courses',(req,res)=>{
       console.log('can not find hw..' + err)
   });
 
-  // console.log("homeworksArray" + studentArray)
+
 
  })
 

@@ -20,6 +20,15 @@ router.post('/getcourse/id',(req,res)=> {
     })
 })
 
+router.get('/getcourse/name/:id',(req,res)=> {
+    Course.findOne({ _id: encodeURIComponent(req.params.id) }).then(course => {
+        console.log(course);
+        res.send(course)
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
  router.post('/create',(req,res)=>{
 
     const newCourse = new Course;

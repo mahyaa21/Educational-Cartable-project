@@ -275,9 +275,7 @@ console.log('jdshfks')
 
     })
 
-// }).catch(err=>{
-//     console.log('home work does not saved bcz ...'+ err)
-// })
+
 })
 });
 
@@ -286,12 +284,6 @@ console.log('jdshfks')
 
 router.post('/student/upload',function(req, res) {
 
-    // Course.findOne({ course: req.body.course})
-    //     .then(resultCourse => {
-        
-            // console.log('resultcourse',resultCourse.id)
-            // console.log('resultcourse',resultCourse)
-    // console.log(req.body.filename);
     const newhomework = new HomeWorks;
     newhomework.name = req.body.name;
     newhomework.User = req.body.studentId;
@@ -339,9 +331,7 @@ router.post('/student/upload',function(req, res) {
 
     })
 
-// }).catch(err=>{
-//     console.log('home work does not saved bcz ...'+ err)
-// })
+
 })
 });
 
