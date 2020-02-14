@@ -37,10 +37,10 @@ router.get('/get-courses',(req,res)=>{
    
   const newCU = new CourseUser;
    Promise.all([ User.findOne({name: req.body.student}),Course.findOne({name: req.body.course})]).then(values=>{
-     
+    console.log('newcu',values);
      newCU.Course = values[1].id;
      newCU.Student = values[0].id;
-
+     
      newCU.save().then(courseSaved => {
       res.send(newCU);
     }).catch(err => {

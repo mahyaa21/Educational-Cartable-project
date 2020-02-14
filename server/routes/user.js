@@ -162,7 +162,7 @@ router.post('/login', (req, res) => {
         .then(user => {
             
             if(!user) {
-                errors.email = 'User not found'
+                errors.email = 'کاربر یافت نشد'
                 return res.status(404).json(errors);
             }
             bcrypt.compare(password, user.password)

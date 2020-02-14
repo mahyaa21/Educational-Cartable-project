@@ -4,7 +4,6 @@ const Course = require('../model/course')
 const User = require('../model/user');
 const CourseUser = require('../model/course-user');
 router.get('/', (req, res) => {
-  //  res.send('there is course router!')
     Course.find({}).then(courses => {
         res.json(courses)
     }).catch(err => {
