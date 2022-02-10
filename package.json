@@ -33,7 +33,7 @@
     "material-ui-dropzone": "^2.4.7",
     "mdbreact": "^4.25.1",
     "mongoose": "^5.9.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "pusher-chatkit-server": "^0.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-intl": "^3.12.0",
